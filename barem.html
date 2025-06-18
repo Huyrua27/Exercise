@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bảng Giảng Dạy - Python & Machine Learning 2025</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: #333;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 30px;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(10px);
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+
+        .header p {
+            font-size: 1.2rem;
+            color: #666;
+            font-weight: 500;
+        }
+
+        .search-container {
+            margin-bottom: 30px;
+            position: relative;
+        }
+
+        .search-box {
+            width: 100%;
+            padding: 15px 20px;
+            font-size: 1.1rem;
+            border: none;
+            border-radius: 50px;
+            background: rgba(255, 255, 255, 0.9);
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            outline: none;
+            transition: all 0.3s ease;
+        }
+
+        .search-box:focus {
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+            transform: translateY(-2px);
+        }
+
+        .search-result {
+            margin-top: 15px;
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 10px;
+            display: none;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .course-sections {
+            display: grid;
+            gap: 30px;
+        }
+
+        .section {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(10px);
+        }
+
+        .section-title {
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            color: #2c3e50;
+            border-left: 5px solid #3498db;
+            padding-left: 15px;
+            font-weight: 600;
+        }
+
+        .session-list {
+            display: grid;
+            gap: 15px;
+        }
+
+        .session-item {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            border-radius: 12px;
+            padding: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            color: white;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .session-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+        }
+
+        .session-item.python {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+        }
+
+        .session-item.ml {
+            background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+        }
+
+        .session-item.dl {
+            background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+        }
+
+        .session-number {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+
+        .session-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .session-duration {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+
+        .session-details {
+            display: none;
+            margin-top: 15px;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 10px;
+            color: #333;
+            animation: slideDown 0.3s ease;
+        }
+
+        .session-details.active {
+            display: block;
+        }
+
+        .detail-section {
+            margin-bottom: 15px;
+        }
+
+        .detail-title {
+            font-weight: 600;
+            color: #2c3e50;
+            margin-bottom: 8px;
+            font-size: 1.1rem;
+        }
+
+        .detail-content {
+            line-height: 1.6;
+            color: #555;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes slideDown {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .no-result {
+            text-align: center;
+            color: #e74c3c;
+            font-weight: 600;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 10px;
+            margin-top: 15px;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            .container {
+                padding: 15px;
+            }
+            
+            .section {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Bảng Giảng Dạy Khóa Học</h1>
+            <p>Python & Machine Learning 2025 - HCMUT EE Machine Learning & IoT Lab</p>
+        </div>
+
+        <div class="search-container">
+            <input type="text" class="search-box" placeholder="🔍 Tìm kiếm theo số buổi hoặc nội dung (VD: 'Buổi 5', 'KNN', 'CNN')..." id="searchInput">
+            <div class="search-result" id="searchResult"></div>
+        </div>
+
+        <div class="course-sections">
+            <div class="section">
+                <h2 class="section-title">Phần 1: Nền Tảng Python và Toán học</h2>
+                <div class="session-list" id="python-sessions"></div>
+            </div>
+
+            <div class="section">
+                <h2 class="section-title">Phần 2: Machine Learning</h2>
+                <div class="session-list" id="ml-sessions"></div>
+            </div>
+
+            <div class="section">
+                <h2 class="section-title">Phần 3: Deep Learning</h2>
+                <div class="session-list" id="dl-sessions"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const courseData = [
+            {
+                session: 0,
+                duration: "Ở nhà",
+                title: "Cài môi trường Python",
+                content: "Cài đặt Python và môi trường (Anaconda, Jupyter); Tìm hiểu sử dụng GG collab, VScode, Pycharm,...",
+                activities: "Link video: https://www.youtube.com/watch?v=94W9y-Me6hc (Pycharm, Git, Anaconda)",
+                section: "python"
+            },
+            {
+                session: 1,
+                duration: "2-2.5 tiếng",
+                title: "Giới thiệu Python & Lập trình cơ bản",
+                content: "Giới thiệu Khóa học, Giao lưu và Python; Biến, kiểu dữ liệu (số, chuỗi, boolean); Câu lệnh rẽ-nhánh; Vòng lặp",
+                activities: "Giới thiệu, cài đặt; Viết chương trình đơn giản; Giải bài tập về biến, kiểu dữ liệu, vòng lặp, điều kiện.",
+                section: "python"
+            },
+            {
+                session: 2,
+                duration: "2-2.5 tiếng",
+                title: "Cơ sở Toán cho ML",
+                content: "Giải tích, Đại số tuyến tính, Xác suất",
+                activities: "Ứng dụng vào trong học máy",
+                section: "python"
+            },
+            {
+                session: 3,
+                duration: "2-2.5 tiếng",
+                title: "Cấu trúc dữ liệu & Hàm trong Python",
+                content: "List, Tuple, Dictionary, Set, Tensor& các phương thức cơ bản; Định nghĩa và gọi hàm; Tham số, giá trị trả về; Phạm vi biến (local, global).",
+                activities: "Ôn tập; Thao tác với cấu trúc dữ liệu; Viết hàm giải quyết vấn đề nhỏ.",
+                section: "python"
+            },
+            {
+                session: 4,
+                duration: "2-2.5 tiếng",
+                title: "Thư viện thường dùng trong Python",
+                content: "NumPy: ndarray, phép toán trên mảng, Indexing, Slicing. Pandas: Series, DataFrame, đọc/ghi dữ liệu (CSV, Excel), thao tác trên DataFrame, xử lý dữ liệu thiếu (NaN). {Sklearn, opencv, librosa, tokenizer, matplotlib, seaborn...}",
+                activities: "Sử dụng NumPy cho phép toán mảng; Dùng Pandas để tải, xem thông tin và lọc dữ liệu.",
+                section: "python"
+            },
+            {
+                session: 5,
+                duration: "2-2.5 tiếng",
+                title: "Giới thiệu ML & Data Preprocessing & Feature Engineering",
+                content: "Định nghĩa ML, ứng dụng; Phân loại học (có giám sát, không giám sát, tăng cường); Quy trình phát triển mô hình ML; Tập huấn luyện/kiểm tra, Overfitting/Underfitting; Chuẩn hóa dữ liệu (Standardization, Normalization); Xử lý dữ liệu thiếu (Imputation, xóa); Mã hóa dữ liệu phân loại (One-Hot, Label Encoding); Giới thiệu Feature Engineering.",
+                activities: "Thảo luận ví dụ ML; Chuẩn bị dữ liệu đơn giản; Áp dụng kỹ thuật tiền xử lý; So sánh hiệu suất mô hình.",
+                section: "ml"
+            },
+            {
+                session: 6,
+                duration: "2-2.5 tiếng",
+                title: "Linear Regression",
+                content: "Mô hình hồi quy tuyến tính đơn/đa biến; Hàm mất mát (MSE); Phương pháp tìm tham số (Gradient Descent - khái niệm); Đánh giá mô hình (R-squared, RMSE).",
+                activities: "Xây dựng mô hình với Scikit-learn; Trực quan hóa; Đánh giá hiệu suất.",
+                section: "ml"
+            },
+            {
+                session: 7,
+                duration: "2-2.5 tiếng",
+                title: "Logistic Regression",
+                content: "Hàm Sigmoid; Xác suất & ngưỡng phân loại; Đánh giá mô hình phân loại (Accuracy, Precision, Recall, F1-score); Confusion Matrix.",
+                activities: "Xây dựng mô hình hồi quy logistic; Đánh giá bằng các độ đo.",
+                section: "ml"
+            },
+            {
+                session: 8,
+                duration: "2-2.5 tiếng",
+                title: "K-Means Clustering, K-nearest Neighbors (KNN)",
+                content: "Thuật toán K-Means (khởi tạo, gán, cập nhật); Xác định số lượng cụm tối ưu (Elbow Method); Ứng dụng.",
+                activities: "Áp dụng K-Means để phân cụm; Dùng Elbow Method; Trực quan hóa các cụm.",
+                section: "ml"
+            },
+            {
+                session: 9,
+                duration: "2-2.5 tiếng",
+                title: "Support Vector Machine (SVM)",
+                content: "Siêu phẳng (hyperplane), lề (margin); Vector hỗ trợ; Kernel Trick (Linear, Polynomial, RBF); Ứng dụng trong phân loại.",
+                activities: "Xây dựng mô hình SVM với các loại kernel; So sánh hiệu suất.",
+                section: "ml"
+            },
+            {
+                session: 10,
+                duration: "2-2.5 tiếng",
+                title: "Decision Tree & Random Forest",
+                content: "Decision Tree: Cách hoạt động, phân chia nút, tiêu chí (Gini, Entropy), Overfitting. Random Forest: Ensemble Learning, nguyên tắc hoạt động, ưu điểm.",
+                activities: "Xây dựng và huấn luyện Decision Tree & Random Forest; So sánh hiệu suất.",
+                section: "ml"
+            },
+            {
+                session: 11,
+                duration: "2-2.5 tiếng",
+                title: "Principal Component Analysis (PCA)",
+                content: "Giới thiệu về PCA, Cơ chế hoạt động và Ứng dụng",
+                activities: "Ôn lại đại số tuyến tính, Lý thuyết PCA và nhận diện bài toán dùng PCA",
+                section: "ml"
+            },
+            {
+                session: 12,
+                duration: "2-2.5 tiếng",
+                title: "Reinforcement Learning (RL)",
+                content: "Markov Decision Process (MDP), Value Iteration, Q-Learning, PyGame",
+                activities: "Áp dụng thuật toán RL cho một game đơn giản.",
+                section: "ml"
+            },
+            {
+                session: 13,
+                duration: "2-2.5 tiếng",
+                title: "Giới thiệu Deep Learning & Mạng Nơ-ron cơ bản",
+                content: "DL, nơ-ron sinh học/nhân tạo; Cấu trúc mạng nơ-ron truyền thẳng; Nơ-ron (Input, Weights, Bias, Activation Function); Các lớp; Forward Propagation; Hàm mất mát, tối ưu hóa (Gradient Descent, Backpropagation - ý tưởng); TensorFlow/Keras.",
+                activities: "Xây dựng mạng nơ-ron đơn giản bằng Keras; Huấn luyện & đánh giá.",
+                section: "dl"
+            },
+            {
+                session: 14,
+                duration: "2-2.5 tiếng",
+                title: "Mạng Nơ-ron Tích chập (CNNs) cho bài toán Phân loại ảnh",
+                content: "CNNs & ứng dụng trong thị giác máy tính; Thành phần chính (Lớp Tích chập, Lớp gộp); Filter/Kernel, Stride, Padding; Kiến trúc CNN cơ bản; Ứng dụng trong phân loại ảnh.",
+                activities: "Xây dựng mô hình CNNs đơn giản; Huấn luyện & kiểm tra.",
+                section: "dl"
+            },
+            {
+                session: 15,
+                duration: "2-2.5 tiếng",
+                title: "Mạng Nơ-ron Tích chập (CNNs) cho bài toán Phát hiện đối tượng (Object Detection)",
+                content: "CNNs & ứng dụng trong Phát hiện đối tượng. Sử dụng các model pretrained xây dựng mạng CNN cho bài toán Object Detection",
+                activities: "Xây dựng mô hình CNNs cho bài toán OD bằng Yolo; Huấn luyện & kiểm tra.",
+                section: "dl"
+            },
+            {
+                session: 16,
+                duration: "2-2.5 tiếng",
+                title: "Generative Adversarial Network",
+                content: "Giới thiệu mạng GANs cơ bản. Phân biệt Generator vs Discriminator. Ứng dụng thực tế: tạo ảnh khuôn mặt, phục chế ảnh, deepfake, style transfer.",
+                activities: "Xây dựng mô hình GANs cơ bàn. Demo ứng dụng thực tế từ GANs",
+                section: "dl"
+            }
+        ];
+
+        function renderSessions() {
+            const pythonContainer = document.getElementById('python-sessions');
+            const mlContainer = document.getElementById('ml-sessions');
+            const dlContainer = document.getElementById('dl-sessions');
+
+            courseData.forEach(session => {
+                const sessionElement = createSessionElement(session);
+                
+                if (session.section === 'python') {
+                    pythonContainer.appendChild(sessionElement);
+                } else if (session.section === 'ml') {
+                    mlContainer.appendChild(sessionElement);
+                } else if (session.section === 'dl') {
+                    dlContainer.appendChild(sessionElement);
+                }
+            });
+        }
+
+        function createSessionElement(session) {
+            const sessionDiv = document.createElement('div');
+            sessionDiv.className = `session-item ${session.section}`;
+            sessionDiv.innerHTML = `
+                <div class="session-number">Buổi ${session.session}</div>
+                <div class="session-title">${session.title}</div>
+                <div class="session-duration">⏱️ ${session.duration}</div>
+                <div class="session-details" id="details-${session.session}">
+                    <div class="detail-section">
+                        <div class="detail-title">📚 Nội dung giảng dạy:</div>
+                        <div class="detail-content">${session.content}</div>
+                    </div>
+                    <div class="detail-section">
+                        <div class="detail-title">💻 Hoạt động trên lớp & Thực hành:</div>
+                        <div class="detail-content">${session.activities}</div>
+                    </div>
+                </div>
+            `;
+
+            sessionDiv.addEventListener('click', () => {
+                const details = document.getElementById(`details-${session.session}`);
+                details.classList.toggle('active');
+            });
+
+            return sessionDiv;
+        }
+
+        function searchCourse() {
+            const searchTerm = document.getElementById('searchInput').value.toLowerCase().trim();
+            const searchResult = document.getElementById('searchResult');
+            
+            if (searchTerm === '') {
+                searchResult.style.display = 'none';
+                return;
+            }
+
+            const results = [];
+            
+            // Tìm theo số buổi
+            const sessionMatch = searchTerm.match(/(?:buổi\s*)?(\d+)/);
+            if (sessionMatch) {
+                const sessionNumber = parseInt(sessionMatch[1]);
+                const session = courseData.find(s => s.session === sessionNumber);
+                if (session) {
+                    results.push({
+                        type: 'session',
+                        session: session,
+                        highlight: `Buổi ${session.session}: ${session.title}`
+                    });
+                }
+            }
+
+            // Tìm theo nội dung
+            courseData.forEach(session => {
+                const searchInContent = 
+                    session.title.toLowerCase().includes(searchTerm) ||
+                    session.content.toLowerCase().includes(searchTerm) ||
+                    session.activities.toLowerCase().includes(searchTerm);
+                
+                if (searchInContent && !results.some(r => r.session && r.session.session === session.session)) {
+                    results.push({
+                        type: 'content',
+                        session: session,
+                        highlight: `Buổi ${session.session}: ${session.title}`
+                    });
+                }
+            });
+
+            if (results.length > 0) {
+                searchResult.innerHTML = `
+                    <div style="font-weight: 600; margin-bottom: 10px; color: #27ae60;">
+                        🎯 Tìm thấy ${results.length} kết quả:
+                    </div>
+                    ${results.map(result => 
+                        `<div style="padding: 8px; margin: 5px 0; background: #ecf0f1; border-radius: 5px; cursor: pointer;" 
+                              onclick="scrollToSession(${result.session.session})">
+                            ${result.highlight}
+                        </div>`
+                    ).join('')}
+                `;
+                searchResult.style.display = 'block';
+            } else {
+                searchResult.innerHTML = '<div class="no-result">❌ Không có trong bảng giảng dạy</div>';
+                searchResult.style.display = 'block';
+            }
+        }
+
+        function scrollToSession(sessionNumber) {
+            const sessionElement = document.getElementById(`details-${sessionNumber}`).parentElement;
+            sessionElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            sessionElement.style.animation = 'none';
+            setTimeout(() => {
+                sessionElement.style.animation = 'fadeIn 0.8s ease';
+            }, 10);
+        }
+
+        document.getElementById('searchInput').addEventListener('input', searchCourse);
+        document.getElementById('searchInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                searchCourse();
+            }
+        });
+
+        // Khởi tạo trang
+        renderSessions();
+    </script>
+</body>
+</html>
